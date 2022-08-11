@@ -9,13 +9,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 0.2s, opacity 0.2s;
+  pointer-events: none;
+  /* Anim defaults */
+  opacity: 0;
+  transform: scale(120%);
 }
 
 .menu-hidden {
   opacity: 0;
-  pointer-events: none;
-  transform: scale(120%)
+  transform: scale(120%);
+  transition: transform 0.2s, opacity 0.2s;
 }
 
 .menu-shown {
@@ -24,7 +27,8 @@
   overflow: hidden;
   overflow-x: hidden;
   overflow-y: hidden;
-  transform: scale(100%)
+  transform: scale(100%);
+  transition: transform 0.2s, opacity 0.2s;
 }
 
 .menu {
@@ -34,6 +38,7 @@
   padding: 8px 14px;
   border-radius: 25px;
   width: 400px;
+  opacity: inherit;
 }
 
 .menu-content {
