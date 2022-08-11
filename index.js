@@ -38,19 +38,23 @@ class Model {
     this.save();
   }
 
-  editTask(id, updatedTitle = '', updatedText = '', updatedDate = '', updatedStatus = '') {
+  editTask(id, updatedTitle = undefined, updatedText = undefined, updatedDate = undefined, updatedStatus = undefined) {
     let dataToChange = {};
 
-    if (updatedTitle !== '') {
+    if (updatedTitle !== undefined && updatedTitle !== '') {
       dataToChange.taskName = updatedTitle;
     }
-    if (updatedText !== '') {
+    if (updatedText !== undefined) {
       dataToChange.taskDescription = updatedText;
     }
-    if (updatedDate !== '') {
-      dataToChange.date = updatedDate;
+    if (updatedDate !== undefined) {
+      if (updatedDate === '') {
+        dataToChange.date = 'No Date';
+      } else {
+        dataToChange.date = updatedDate;
+      }
     }
-    if (updatedStatus !== '') {
+    if (updatedStatus !== undefined) {
       dataToChange.taskStatus = updatedStatus;
     }
 
@@ -438,9 +442,9 @@ class Controller {
 
       this.model.editTask(
         this.currentChangeStatusId,
-        '',
-        '',
-        '',
+        undefined,
+        undefined,
+        undefined,
         statusValue,
       );
       this.closeChangeStatusMenu();
