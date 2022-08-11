@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale = 1.0, user-scalable = no">
+    <title>Tasks Ultra</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/tasks.css">
+    <link rel="stylesheet" href="styles/overlay-menu.css">
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="task-app">
+      <header>
+        <div class="header-content">
+          <h1>Tasks Ultra</h1>
+          <div class="header-right">
+            <button id="night-mode-button">
+              <svg class="night-svg" viewBox="0 0 24 24">
+                <path
+                  d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6c3.31 0 6 2.69 6 6s-2.69 6-6 6z">
+                </path>
+              </svg>
+            </button>
+            <button class="btn btn-blue" id="create-task-button">Create Task</button>
+          </div>
+        </div>
+      </header>
+      <main>
+        <section id="task-list">
+        </section>
+
+        <div class="menu-container menu-hidden" id="create-menu-container">
+          <div class="menu" id="create-task">
+            <div class="menu-header">
+              <p class="menu-header-text">Create Task</p>
+              <button class="menu-header-close create-task-close">
+                <svg class='x-icon' viewBox="0 0 24 24">
+                  <path
+                    d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+                  </path>
+                </svg>
+              </button>
+            </div>
+
+            <div class="menu-content">
+              <div class="menu-entry">
+                <label class="menu-label" for="create-task-title">Title</label>
+                <input class="menu-field create-task-title" id="create-task-title" type="text" placeholder="Task Title">
+              </div>
+              <div class="menu-entry">
+                <label class="menu-label" for="create-task-description">Description</label>
+                <div class="menu-field-autogrow-wrapper">
+                  <textarea class="menu-field-autogrow create-task-description" id="create-task-description" type="text"
+                    placeholder="Task Description (Optional)"
+                    onInput="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+                </div>
+              </div>
+              <div class="menu-entry">
+                <label class="menu-label" for="create-task-date">Date</label>
+                <input class="menu-field create-task-date" type="date" id="create-task-date" placeholder="Task Date">
+              </div>
+              <div class="menu-entry">
+                <label class="menu-label" for="create-task-status">Status</label>
+                <select class="menu-select" name="create-task-status" id="create-task-status">
+                  <option class="option-pending" value="0">Pending</option>
+                  <option value="1">Complete</option>
+                  <option value="2">Canceled</option>
+                </select>
+              </div>
+              <button class="btn btn-blue menu-entry-button create-task-submit">Submit</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-container menu-hidden" id="edit-menu-container">
+          <div class="menu" id="edit-task">
+            <div class="menu-header">
+              <p class="menu-header-text">Edit Task</p>
+              <button class="menu-header-close edit-task-close">
+                <svg class='x-icon' viewBox="0 0 24 24">
+                  <path
+                    d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+                  </path>
+                </svg>
+              </button>
+            </div>
+
+            <div class="menu-content">
+              <div class="menu-entry">
+                <label class="menu-label" for="edit-task-title">Edit Title</label>
+                <input class="menu-field edit-task-title" id="edit-task-title" type="text" placeholder="Task Title">
+              </div>
+              <div class="menu-entry">
+                <label class="menu-label" for="create-task-description">Edit Description</label>
+                <div class="menu-field-autogrow-wrapper">
+                  <textarea class="menu-field-autogrow edit-task-description" id="edit-task-description" type="text"
+                    placeholder="Task Description (Optional)"
+                    onInput="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+                </div>
+              </div>
+              <div class="menu-entry">
+                <label class="menu-label" for="edit-task-date">Edit Date</label>
+                <input class="menu-field edit-task-date" type="date" id="edit-task-date" placeholder="Task Date">
+              </div>
+              <div class="menu-entry">
+                <label class="menu-label" for="edit-task-status">Edit Status</label>
+                <select class="menu-select" name="edit-task-status" id="edit-task-status">
+                  <option class="option-pending" value="0">Pending</option>
+                  <option value="1">Complete</option>
+                  <option value="2">Canceled</option>
+                </select>
+              </div>
+              <div style="display: flex; width: 100%">
+                <button class="btn btn-blue menu-entry-button edit-task-submit">Submit</button>
+                <button class="btn btn-yellow menu-entry-button edit-task-remove">Remove Task</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-container menu-hidden" id="add-comment-container">
+          <div class="menu" id="add-comment">
+            <div class="menu-header">
+              <p class="menu-header-text">Add Comment</p>
+              <button class="menu-header-close add-comment-close">
+                <svg class='x-icon' viewBox="0 0 24 24">
+                  <path
+                    d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+                  </path>
+                </svg>
+              </button>
+            </div>
+
+            <div class="menu-content">
+              <div class="menu-entry">
+                <div class="menu-field-autogrow-wrapper">
+                  <textarea class="menu-field-autogrow add-comment-field" id="add-comment-field" type="text"
+                    placeholder="Comment Text"
+                    onInput="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+                  <div style="margin-bottom: 8px"></div>
+                </div>
+              </div>
+              <button class="btn btn-blue menu-entry-button add-comment-submit">Submit</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-container menu-hidden" id="change-status-container">
+          <div class="menu" id="change-status">
+            <div class="menu-header">
+              <p class="menu-header-text">Change Status</p>
+              <button class="menu-header-close change-status-close">
+                <svg class='x-icon' viewBox="0 0 24 24">
+                  <path
+                    d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+                  </path>
+                </svg>
+              </button>
+            </div>
+
+            <div class="menu-content">
+              <div class="menu-entry">
+                <label class="menu-label" for="change-task-status">New Status</label>
+                <select class="menu-select" name="change-status-dropdown" id="change-status-dropdown">
+                  <option class="option-pending" value="0">Pending</option>
+                  <option value="1">Complete</option>
+                  <option value="2">Canceled</option>
+                </select>
+              </div>
+              <button class="btn btn-blue menu-entry-button change-status-submit">Submit</button>
+            </div>
+          </div>
+        </div>
+
+      </main>
+      <footer>
+        <p>&copy;Ayden Springer <span style="padding: 0px 4px">"WraithWinterly"</span> &copy;2022</p>
+      </footer>
+
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+
+</html>

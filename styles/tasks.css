@@ -1,0 +1,232 @@
+/* min-width If at least 600px */
+/* max-width If less than 600px */
+
+@media (max-width: 719px) {
+  .task-card-content {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 720px) {
+  #task-list {
+    display: grid;
+    margin: auto;
+    justify-content: center;
+    grid-template-columns: 400px 400px;
+  }
+}
+
+@media (min-width: 1280px) {
+  #task-list {
+    display: grid;
+    margin: auto;
+    justify-content: center;
+    grid-template-columns: 400px 400px 400px;
+  }
+}
+
+/* Task Card */
+.task-card {
+  background-color: var(--main-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  padding: 14px 12px;
+  border-radius: 15px;
+  min-height: 200px;
+  margin: 10px 10px;
+  animation: 0.25s ease-out 0s 1 card-anim;
+  transition: color 0.2s, background-color 0.4s;
+
+  /* animation-duration: 1s; */
+  /* the duration of the animation */
+  /* animation-timing-function: ease-out; */
+  /* how the animation will behave */
+  /* animation-delay: 0s; */
+  /* how long to delay the animation from starting */
+  /* animation-iteration-count: 1; */
+  /* how many times the animation will play */
+  /*  animation-name: slideInFromLeft; */
+  /*  the name of the animation we defined above */
+}
+
+@keyframes card-anim {
+  0% {
+    transform: scale(0.98);
+    opacity: 0.45;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Task Header */
+.task-card-header {
+  display: flex;
+  align-items: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.task-status-circle {
+  width: 20px;
+  height: 20px;
+  background-color: purple;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.task-status-circle-green {
+  background-color: green;
+}
+
+.task-status-circle-yellow {
+  background-color: yellow;
+}
+
+.task-status-circle-red {
+  background-color: red;
+}
+
+.task-title {
+  margin-left: 5px;
+  max-width: 320px;
+  word-wrap: break-word;
+}
+
+/* Task Content  */
+.task-card-content {
+  padding: 5px;
+  display: flex;
+}
+
+.task-card-content-left {
+  flex: 1;
+}
+
+.task-card-content-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.task-date {
+  color: var(--font-color-secondary);
+}
+
+.task-description {
+  margin: 8px 0px;
+  color: var(--font-color-primary);
+  max-width: 200px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font: inherit;
+
+}
+
+.task-description-none {
+  color: var(--font-color-secondary);
+  font-style: italic;
+}
+
+/* Task Comments  */
+
+.task-comments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.task-comments-header-text {
+  margin-bottom: 15px;
+}
+
+.task-comments {
+  border-radius: 15px;
+  padding: 10px 10px;
+  margin-bottom: 10px;
+}
+
+.comment-content {
+  flex: 1;
+  display: inline;
+  word-wrap: break-word;
+  word-break: break-word;
+  font: inherit;
+  margin: 2px 0px;
+  line-height: 10px;
+}
+
+.comment-contnainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.comment {
+  margin: 8px 0px;
+  padding: 10px 18px;
+  background-color: var(--secondary-color);
+  border-radius: 15px;
+  display: flex;
+  overflow-wrap: break-word;
+  align-items: center;
+  transition: color 0.2s, background-color 0.4s;
+}
+
+.delete-button {
+  background-color: transparent;
+  border: solid 1px transparent;
+  border-radius: 15px;
+  padding: 2px;
+  transition: background-color 0.1s, filter 0.7s;
+}
+
+.delete-button:hover {
+  background-color: rgba(1, 1, 1, 0.1);
+}
+
+.delete-button svg {
+  height: 24px;
+  margin: 0px 2px;
+  filter: var(--svg-filter);
+  transition: filter 0.4s;
+}
+
+.delete-button:hover svg {
+  /* red */
+  filter: invert(16%) sepia(75%) saturate(6897%) hue-rotate(345deg) brightness(95%) contrast(113%);
+}
+
+#no-tasks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.no-tasks {
+  background-color: var(--main-color);
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 12px;
+  border-radius: 16px;
+}
+
+#no-tasks p {
+  font: inherit;
+  font-size: 24px;
+  text-align: center;
+  font-style: italic;
+}
