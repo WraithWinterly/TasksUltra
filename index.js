@@ -41,7 +41,7 @@ class Model {
   editTask(id, updatedTitle = undefined, updatedText = undefined, updatedDate = undefined, updatedStatus = undefined) {
     let dataToChange = {};
 
-    if (updatedTitle !== undefined && updatedTitle !== '') {
+    if (updatedTitle !== undefined) {
       dataToChange.taskName = updatedTitle;
     }
     if (updatedText !== undefined) {
@@ -69,7 +69,7 @@ class Model {
   }
 
   addComment(task, text = 'Empty Comment') {
-    let commentId = Math.floor(Math.random() * 999999);
+    const commentId = Math.floor(Math.random() * 999999);
     task.comments[commentId] = text;
     this.save();
   }
@@ -136,6 +136,7 @@ class View {
 
   showCreateTaskMenu() {
     this.createTaskTitle.value = '';
+    this.createTaskTitle.focus();
     this.createTaskDescription.value = '';
     this.createTaskSection.querySelector('.menu-field-autogrow-wrapper').dataset.replicatedValue = '';
     this.createTaskDate.value = new Date().toDateInputValue();
@@ -145,6 +146,7 @@ class View {
 
   showEditTaskMenu(task) {
     this.editTaskTitle.value = task.taskName;
+    this.editTaskTitle.focus();
     this.editTaskDescription.value = task.taskDescription;
     this.editTaskSection.querySelector('.menu-field-autogrow-wrapper').dataset.replicatedValue = task.taskDescription;
     this.editTaskDate.value = task.date === 'No Date' ? '' : task.date;
@@ -154,12 +156,14 @@ class View {
 
   showAddCommentMenu() {
     this.commentField.value = '';
+    this.commentField.focus();
     this.commentSection.querySelector('.menu-field-autogrow-wrapper').dataset.replicatedValue = '';
     this.addCommentMenuContainer.classList = 'menu-container menu-shown';
   }
 
   showChangeStatusMenu(task) {
     this.changeStatusDropdown.value = task.taskStatus;
+    this.changeStatusDropdown.focus();
     this.changeStatusMenuContainer.classList = 'menu-container menu-shown';
   }
 
@@ -183,7 +187,7 @@ class View {
   }
 
   onRemoveTaskAttempted() {
-    let clone = this.editTaskRemove.cloneNode(true);
+    const clone = this.editTaskRemove.cloneNode(true);
     this.editTaskRemove.replaceWith(clone);
     this.editTaskRemove = clone;
     this.editTaskRemove.innerText = 'Confirm Remove';
@@ -208,7 +212,7 @@ class View {
       return;
     }
     else {
-      let noTasks = document.getElementById('no-tasks');
+      const noTasks = document.getElementById('no-tasks');
       if (noTasks != null) {
         noTasks.parentElement.removeChild(noTasks);
       }
@@ -217,9 +221,9 @@ class View {
     // Task Sorting
     let sortedTasks = [];
 
-    let tasksCompleted = tasks.filter(task => task.taskStatus === TASK_STATUS_COMPLETE);
-    let tasksPending = tasks.filter(task => task.taskStatus === TASK_STATUS_PENDING);
-    let tasksCanceled = tasks.filter(task => task.taskStatus === TASK_STATUS_CANCELED);
+    const tasksCompleted = tasks.filter(task => task.taskStatus === TASK_STATUS_COMPLETE);
+    const tasksPending = tasks.filter(task => task.taskStatus === TASK_STATUS_PENDING);
+    const tasksCanceled = tasks.filter(task => task.taskStatus === TASK_STATUS_CANCELED);
 
     tasksCompleted.forEach(task => sortedTasks.push(task));
     tasksPending.forEach(task => sortedTasks.push(task));
@@ -240,15 +244,18 @@ class View {
         circleColorClass = 'task-status-circle-red';
       }
 
-      let commentCount = Object.keys(task.comments).length;
-      let hasDescription = task.taskDescription !== '';
+      const commentCount = Object.keys(task.comments).length;
+
+      const hasTitle = task.taskName !== '';
+
+      const hasDescription = task.taskDescription !== '';
 
       this.taskList.insertAdjacentHTML('beforeend', `
         <div id="task-${task.id}" class="task-card">
           <div>
             <div class="task-card-header">
               <div class="task-status-circle ${circleColorClass}"></div>
-              <h1 class="task-title">${task.taskName}</h1>
+              <h1 class="task-title">${hasTitle ? task.taskName : 'Untitled Task'}</h1>
             </div>
             <div class="task-card-content">
               <div class="task-card-content-left">
@@ -273,8 +280,8 @@ class View {
       );
 
       // Add comments
-      let taskDiv = document.getElementById(`task-${task.id}`);
-      let commentContainer = taskDiv.querySelector('.comment-container');
+      const taskDiv = document.getElementById(`task-${task.id}`);
+      const commentContainer = taskDiv.querySelector('.comment-container');
 
       Object.keys(task.comments).forEach(comment => {
         commentContainer.insertAdjacentHTML('beforeend', `
@@ -297,7 +304,7 @@ class Controller {
     this.view = view;
 
     this.nightMode = JSON.parse(localStorage.getItem('nightMode')) || false;
-    console.log(this.nightMode);
+
     this.currentEditTaskId = -1;
     this.currentAddCommentTaskId = -1;
     this.currentChangeStatusId = -1;
@@ -358,7 +365,6 @@ class Controller {
           const comment = document.getElementById(`comment-${commentId}`);
           const delButton = comment.querySelector('.delete-button');
           delButton.addEventListener('click', () => {
-            console.log(commentId);
             this.removeComment(task, commentId);
           });
         });
@@ -420,7 +426,7 @@ class Controller {
   initializeCommentMenu() {
     const submitAction = () => {
       if (this.currentAddCommentTaskId === -1) { console.log('Cannot Submit Comment'); return; }
-      let task = this.model.findTask(this.currentAddCommentTaskId);
+      const task = this.model.findTask(this.currentAddCommentTaskId);
       if (task == null) { console.log('Task Not Found'); return; }
       this.model.addComment(task, this.view.commentField.value);
       this.closeCommentMenu();
@@ -464,7 +470,7 @@ class Controller {
   showEditTaskMenu(id) {
     this.currentEditTaskId = id;
 
-    let task = this.model.findTask(id);
+    const task = this.model.findTask(id);
     if (task == null) { console.log('Invalid Task Edit'); return; }
     this.view.showEditTaskMenu(task);
   }
@@ -489,7 +495,7 @@ class Controller {
 
   showAddCommentMenu(id) {
     this.currentAddCommentTaskId = id;
-    let task = this.model.findTask(id);
+    const task = this.model.findTask(id);
     if (task == null) { console.log('Invalid Task Edit'); return; }
     this.view.showAddCommentMenu(task);
   }

@@ -156,12 +156,13 @@
 
 .comment-content {
   flex: 1;
-  display: inline;
   word-wrap: break-word;
   word-break: break-word;
+  display: inline-block;
+  white-space: initial;
   font: inherit;
   margin: 2px 0px;
-  line-height: 10px;
+
 }
 
 .comment-contnainer {
