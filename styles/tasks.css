@@ -94,6 +94,9 @@
   margin-left: 5px;
   max-width: 320px;
   word-wrap: break-word;
+  word-break: break-word;
+  display: inline-block;
+  white-space: initial;
 }
 
 /* Task Content  */
