@@ -76,10 +76,7 @@ class Model {
 
   removeComment(task, id) {
     Object.keys(task.comments).forEach(key => {
-      console.log(key);
-      console.log(id);
       if (key === id) {
-        console.log(id);
         delete task.comments[id];
       }
     });
@@ -228,8 +225,6 @@ class View {
     tasksCompleted.forEach(task => sortedTasks.push(task));
     tasksPending.forEach(task => sortedTasks.push(task));
     tasksCanceled.forEach(task => sortedTasks.push(task));
-
-    console.log(sortedTasks);
 
     // Add new tasks
     sortedTasks.forEach(task => {
