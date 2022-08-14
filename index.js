@@ -89,7 +89,7 @@ class Model {
   }
 
   findTask(id) {
-    return this.tasks.filter(task => task.id === id)[0];
+    return this.tasks.find(task => task.id === id);
   }
 }
 
@@ -215,16 +215,11 @@ class View {
       }
     }
 
-    // Task Sorting
-    let sortedTasks = [];
-
     const tasksCompleted = tasks.filter(task => task.taskStatus === TASK_STATUS_COMPLETE);
     const tasksPending = tasks.filter(task => task.taskStatus === TASK_STATUS_PENDING);
     const tasksCanceled = tasks.filter(task => task.taskStatus === TASK_STATUS_CANCELED);
 
-    tasksCompleted.forEach(task => sortedTasks.push(task));
-    tasksPending.forEach(task => sortedTasks.push(task));
-    tasksCanceled.forEach(task => sortedTasks.push(task));
+    const sortedTasks = [...tasksCompleted, ...tasksPending, ...tasksCanceled];
 
     // Add new tasks
     sortedTasks.forEach(task => {
@@ -516,9 +511,7 @@ class Controller {
 
     this.view.editTaskRemove.addEventListener('click', () => {
       this.onRemoveTaskAttempted();
-
     });
-
   }
 
   closeCommentMenu() {
